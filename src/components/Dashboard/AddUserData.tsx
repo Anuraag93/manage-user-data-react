@@ -1,9 +1,10 @@
-import React from "react";
-import { useState } from "react";
+import React, { useContext, useState } from "react";
+
 import "./AddUserData.css";
 import { User } from "../../types/User";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { LOCAL_STORAGE_KEYS } from "../../constants/localStorageKeys";
+import { UserContext } from "../../context/UserContext";
 
 const AddUserData = () => {
   const [branchId, setBranchId] = useState("");
@@ -15,7 +16,11 @@ const AddUserData = () => {
   const [password, setPassword] = useState("");
 
   const [errorMessage, setErrorMessage] = useState("");
-  const { getItem, setItem } = useLocalStorage(LOCAL_STORAGE_KEYS.USER_LIST);
+
+  const userContext = useContext(UserContext);
+  if (!userContext) {
+    throw new Error("useUserContext must be used within a UserProvider");
+  }
 
   const handleReset = () => {
     setBranchId("");
@@ -51,8 +56,8 @@ const AddUserData = () => {
       password,
     };
 
-    const userList = getItem();
-    setItem([...userList, newUser]);
+    // add the new user to the context
+    userContext.addUser(newUser);
 
     handleReset();
   };

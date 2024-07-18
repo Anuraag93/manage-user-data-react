@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import { users } from "../data/users_data";
 import { useNavigate } from "react-router-dom";
@@ -6,14 +6,24 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { LOCAL_STORAGE_KEYS } from "../constants/localStorageKeys";
+import { UserContext } from "../context/UserContext";
+import { User } from "../types/User";
 
 const Login = () => {
   const [branchId, setBranchId] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate();
+
   const { setItem } = useLocalStorage(LOCAL_STORAGE_KEYS.LOGGEDIN_USER);
+
+  const userContext = useContext(UserContext);
+  if (!userContext) {
+    throw new Error("useUserContext must be used within a UserProvider");
+  }
 
   const handleLogin = () => {
     //check if branchId is empty
@@ -72,6 +82,20 @@ const Login = () => {
     setErrorMessage("");
     //set username in the local storage as loggedinUser
     setItem(user.userName);
+
+    //add the users to the context
+    users.forEach((user) => {
+      const newUser: User = {
+        branchId: String(user.branchId),
+        userName: user.userName,
+        firstName: user.firstName,
+        middleName: user.middleName,
+        lastName: user.lastName,
+        position: user.position,
+        password: user.password,
+      };
+      userContext.addUser(newUser);
+    });
     // move to the dashboard page
     navigate("/dashboard");
   };
