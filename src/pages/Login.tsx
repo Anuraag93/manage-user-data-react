@@ -1,13 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import { users } from "../data/users_data";
+import { useNavigate } from "react-router-dom";
+
 import "./Login.css";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { LOCAL_STORAGE_KEYS } from "../constants/localStorageKeys";
 
 const Login = () => {
   const [branchId, setBranchId] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+  const { setItem } = useLocalStorage(LOCAL_STORAGE_KEYS.LOGGEDIN_USER);
 
   const handleLogin = () => {
     //check if branchId is empty
@@ -64,9 +70,10 @@ const Login = () => {
     }
 
     setErrorMessage("");
-
-    // move to the next page
-    alert("Login successful");
+    //set username in the local storage as loggedinUser
+    setItem(user.userName);
+    // move to the dashboard page
+    navigate("/dashboard");
   };
 
   return (
@@ -79,7 +86,7 @@ const Login = () => {
             placeholder="Branch ID"
             value={branchId}
             onChange={(e) => setBranchId(e.target.value)}
-          />{" "}
+          />
         </div>
         <div>
           <input

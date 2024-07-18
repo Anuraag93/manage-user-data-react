@@ -1,0 +1,42 @@
+.dashboard-main {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 50px;
+}
+.dashboard-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+  font-size: 30px;
+  margin-bottom: 50px;
+}
+.logout-button {
+  background-color: #34ace3;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  color: black;
+  padding: 20px;
+  align-self: flex-end;
+  margin-bottom: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.dashboard-body {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 768px) {
+  .dashboard-body {
+    flex-direction: column;
+  }
+}
