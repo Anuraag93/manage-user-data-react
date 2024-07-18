@@ -1,3 +1,11 @@
+# Screenshots
+
+Here are some screenshots of the React app:
+
+<img src="screenshots/login-screen.png" alt="login-screen" width="400"/>
+<img src="screenshots/responsive-dashboard.png" alt="responsive-dashboard" width="400"/>
+<img src="screenshots/dashboard-screen.png" alt="dashboard-screen" height="400"/>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
