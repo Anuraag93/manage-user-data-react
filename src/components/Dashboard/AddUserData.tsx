@@ -2,8 +2,6 @@ import React, { useContext, useState } from "react";
 
 import "./AddUserData.css";
 import { User } from "../../types/User";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { LOCAL_STORAGE_KEYS } from "../../constants/localStorageKeys";
 import { UserContext } from "../../context/UserContext";
 
 const AddUserData = () => {
